@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template
-from . import db
 from flask_login import login_required, current_user
-from client import get_me_question
-base = Blueprint("base", __name__)
+from quiz.client import get_me_question
+from quiz import db
 
+
+base = Blueprint("base", __name__)
 
 
 @base.route("/")
