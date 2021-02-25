@@ -1,7 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-    Welcome, {{ username }}!
+<h1>
+    Welcome to your Trivia Game {{ username }}!
 </h1>
+<div class="q&a">
+    {% for question in questions %}
+    <p id="category">{{ category }}</p>
+    <p id="difficulty">{{ difficulty }}</p>
+    <p id="question">{{ question }}</p>
+    <h11>Pick Yours Answer</h11>
+    <button id="answer1"></button>
+    <button id="answer2"></button>
+    <button id="answer3"></button>
+    <button id="answer4"></button>
+
+    {% endfor %}
+</div>
 {% endblock %}

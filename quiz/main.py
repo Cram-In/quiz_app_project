@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template
 from . import db
 from flask_login import login_required, current_user
-
+from client import get_me_question
 base = Blueprint("base", __name__)
+
 
 
 @base.route("/")
@@ -13,4 +14,5 @@ def index():
 @base.route("/profile/")
 @login_required
 def profile():
-    return render_template("profile.html", username=current_user.username)
+    questions = get_me_question()
+    return render_template("profile.html", username=current_user.username, questions=questions)
