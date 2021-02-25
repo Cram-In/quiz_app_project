@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="font-size: 22px;">
+    Welcome to your Trivia Game {{ username }}!
+</h1>
+<div class="q&a">
+
+    <h11> Question from: </h11>
+    <p id="category"> {{ question.category }} - category</p>
+    <p id="difficulty">Difficulty: {{ question.difficulty }}</p>
+    <p>There is yours question</p>
+    <p>{{ question.question }} </p>
+
+    <form action="/counter/{{ username }}/" method="POST">
+        <button id="true1">True</button>
+        <button id="false2">False</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,9 +1,11 @@
 from pytrivia import Category, Diffculty, Type, Trivia
 
-
+target =["results"]
 
 def get_me_question():
     trivia_client = Trivia(True)
-    question = (trivia_client.request(1, Category.Books , Diffculty.Easy, Type.True_False))
-    print(question)
-    return question
+    question = (trivia_client.request(1))
+    for k, v in question.items():
+        if k in target:
+            results = v[0]            
+            return results

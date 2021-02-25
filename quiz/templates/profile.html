@@ -1,21 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 style="font-size: 22px;">
-    Welcome to your Trivia Game {{ username }}!
+<h1 style="font-size: 25px;">
+    Welcome to {{ username }}!
 </h1>
-<div class="q&a">
-    {% for question in questions %}
-    <h11> Question from: </h11>
-    <p id="category">category: {{ question.results }}</p>
-    <p id="difficulty">difficulty: {{ question.difficulty }}</p>
 
-
-    <p>there is a question {{ question.question }} </p>
-
-    <button id="true1">True</button>
-    <button id="false2">False</button>
-
-    {% endfor %}
-</div>
+<h1 class="subject">Here will be yours score board</h1>
 {% endblock %}

@@ -11,6 +11,8 @@ class User(UserMixin, db.Model):
     def __str__(self):
         return f"User: {self.username}"
 
+    def get(self, username):
+        return self.user[id]
 
 class Score(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -20,3 +22,6 @@ class Score(db.Model):
 
     def __str__(self):
         return f"Quiz: {self.quiz_title} = {self.quiz_score}"
+
+score = Score()
+user = User()
