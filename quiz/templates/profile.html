@@ -1,9 +1,47 @@
 {% extends "base.html" %}
+{% block head %}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 <h1 style="font-size: 25px;">
     Welcome to {{ username }}!
 </h1>
 
-<h1 class="subject">Here will be yours score board</h1>
+<h2>Yours Score Board</h2>
+<div class="score_board">
+    <table>
+        <tr>
+            <th>Quiz Category</th>
+            <th>Quiz Question</th>
+            <th>Difficulty level</th>
+            <th>Score</th>
+        </tr>
+        {% for quiz in quizzes %}
+        <tr>
+            <td>{{ quiz_title }}</td>
+            <td>{{ quiz_question}}</td>
+            <td>{{ quiz_level}}</td>
+            <td>{{ quiz_score}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}
