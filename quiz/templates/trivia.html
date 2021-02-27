@@ -5,16 +5,16 @@
     Welcome to your Trivia Game {{ username }}!
 </h1>
 <div class="q&a">
-
-    <h11> Question from: </h11>
-    <p id="category"> {{ question.category }} - category</p>
-    <p id="difficulty">Difficulty: {{ question.difficulty }}</p>
-    <p>There is yours question</p>
-    <p>{{ question.question }} </p>
-
-    <form action="" method="POST">
-        <button id="win">True</button>
-        <button id="loos">False</button>
+    <form action="/trivia/" method="GET">
+        <h11> Question from: </h11>
+        <p name="category" id="category"> {{ question.category }} - category</p>
+        <p name="difficulty" id="difficulty">Difficulty: {{ question.difficulty }}</p>
+        <p>There is yours question</p>
+        <p name="question" id="question">{{ question.question }} </p>
+    </form>
+    <form action="/trivia/true" method="POST">
+        <button name="true">True</button>
+        <button name="false">False</button>
     </form>
 </div>
 {% endblock %}

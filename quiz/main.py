@@ -1,9 +1,8 @@
-from flask import Blueprint, render_template, redirect, request, flash
+from flask import Blueprint, render_template, redirect, request, flash, session
 from flask_login import login_required, current_user
 from quiz.client import get_me_question
 from quiz import db
-from quiz.models import score, user
-from quiz.forms import ScoreBoard
+from quiz.models import User, Score
 
 base = Blueprint("base", __name__)
 
@@ -16,34 +15,33 @@ def index():
 @base.route("/profile/")
 @login_required
 def profile():
-    return render_template("profile.html", username=current_user.username)
+    quizzes = Score.query.all()
+    return render_template("profile.html", username=current_user.username, quizzes=quizzes)
 
 
-@base.route("/trivia/", methods=["GET", "POST"])
+@base.route("/trivia/", methods=["GET"])
 @login_required
 def trivia():
     question = get_me_question()
+    session["q"] = question
+
     return render_template("trivia.html", username=current_user.username, question=question)
 
 
-"""
-form = ScoreBoard
-    scor = 0
-    if request.method == "POST":
-        form.request["win"]
-        form.request["loos"]
-        if question["correct_answer"] == form.request["win"]:
-            scor += 1
-            flash("You are correct")
-            quiz = Score(request.form["category"], request.form["score"], request.form["user_id"])
+@base.route("/trivia/true", methods=["GET", "POST"])
+@login_required
+def correct():
+    username = current_user.username
 
-            db.session.add(quiz)
-            db.session.commit()
-            return redirect("/trivia/")
-        else:
-            flash("You are incorrect")
-            quiz = Score(request.form["category"], request.form["score"], request.form["user_id"])
+    id = User.query.filter_by(username=username).first()
 
-            db.session.add(quiz)
-            db.session.commit()
-"""
+    quest = session.get("q", None)
+
+    quiz = Score(
+        category=quest["category"], question=quest["question"], level=quest["difficulty"], score=1, user_id=id
+    )
+
+    db.session.add(quiz)
+    db.session.commit()
+
+    return redirect("/trivia/")
