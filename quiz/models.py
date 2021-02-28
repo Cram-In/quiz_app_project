@@ -7,6 +7,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)  # primary keys are required by SQLAlchemy
     username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
+    total = db.Column(db.Integer)
     scores = db.relationship("Score", backref="user", lazy="dynamic")
 
     def get(self, username):

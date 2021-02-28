@@ -10,22 +10,22 @@
     td,
     th {
         border: 1px solid #dddddd;
-        text-align: left;
+        text-align: center;
         padding: 8px;
     }
 
     tr:nth-child(even) {
-        background-color: #dddddd;
+        background-color: #dddddd00;
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <h1 style="font-size: 25px;">
-    Welcome to {{ username }}!
-</h1>
-
-<h2>Yours Score Board</h2>
+    Welcome {{ username }}!
+</h1><br>
+Yours current total is : {{ total }} <br><br>
+<h2>Yours Score Board</h2><br>
 <div class="score_board">
     <table>
         <tr>

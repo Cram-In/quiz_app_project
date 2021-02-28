@@ -1,5 +1,5 @@
 from flask import request, session, flash, redirect
-from quiz.models import Score
+from quiz.models import Score, User
 from quiz import db
 
 
@@ -16,3 +16,14 @@ def check_answers(answers, quest, user):
         )
         db.session.add(quiz)
         db.session.commit()
+
+
+def total_score(user, scores):
+    total = 0
+    for score in scores:
+        total = total + score.score
+
+    user.total = total
+    db.session.commit()
+    print("db updated")
+    return total

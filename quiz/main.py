@@ -3,14 +3,16 @@ from flask_login import login_required, current_user
 from quiz.client import get_me_question
 from quiz import db
 from quiz.models import User, Score
-from quiz.utilities import check_answers
+from quiz.utilities import check_answers, total_score
 
 base = Blueprint("base", __name__)
 
 
 @base.route("/")
 def index():
-    return render_template("index.html")
+    users = User.query.all()
+
+    return render_template("index.html", users=users)
 
 
 @base.route("/profile/")
@@ -19,8 +21,9 @@ def profile():
     username = current_user.username
     user = User.query.filter_by(username=username).first()
     scores = Score.query.filter_by(user_id=user.id).all()
+    total = total_score(user, scores)
 
-    return render_template("profile.html", username=username, scores=scores)
+    return render_template("profile.html", username=username, scores=scores, total=total)
 
 
 @base.route("/trivia/", methods=["GET"])
