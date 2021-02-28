@@ -3,13 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from config import Config
 
-# init SQLAlchemy so we can use it later in our models
 
 db = SQLAlchemy()
 
 
 def create_app():
-    print("<===========================fuck========================>")
 
     app = Flask(__name__)
 
@@ -38,6 +36,5 @@ def create_app():
     from .main import base as base_blueprint
 
     app.register_blueprint(base_blueprint)
-    print("<============all======the=========fucks=================>")
 
     return app

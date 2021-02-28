@@ -9,5 +9,4 @@ def get_me_question():
     for k, v in question.items():
         if k in target:
             results = v[0]
-            # print(results)
             return results

@@ -28,7 +28,6 @@ def profile():
 def trivia():
     question = get_me_question()
     session["q"] = question
-
     return render_template("trivia.html", username=current_user.username, question=question)
 
 
@@ -36,19 +35,14 @@ def trivia():
 @login_required
 def correct():
     username = current_user.username
-
     user = User.query.filter_by(username=username).first()
 
     quest = session.get("q", None)
-    print(f"<=====correct=====>")
-    if request.form["True"] == "True":
-        print(f"<======= if request True========>")
-        answers = "True"
-        print(answers)
+
+    if request.form["my_answer"] == quest["correct_answer"]:
+        answers = request.form["my_answer"]
         check_answers(answers, quest, user)
     else:
-        print(f"<======= if request False========>")
-        answers = "False"
+        answers = request.form["my_answer"]
         check_answers(answers, quest, user)
-
     return redirect("/trivia/")
