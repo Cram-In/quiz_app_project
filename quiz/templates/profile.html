@@ -34,12 +34,12 @@
             <th>Difficulty level</th>
             <th>Score</th>
         </tr>
-        {% for quiz in quizzes %}
+        {% for score in scores %}
         <tr>
-            <td>{{ category }}</td>
-            <td>{{ question }}</td>
-            <td>{{ level}}</td>
-            <td>{{ score}}</td>
+            <td>{{ score.category }}</td>
+            <td>{{ score.question }}</td>
+            <td>{{ score.level}}</td>
+            <td>{{ score.score}}</td>
         </tr>
         {% endfor %}
     </table>

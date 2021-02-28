@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from quiz.client import get_me_question
 from quiz import db
 from quiz.models import User, Score
+from quiz.utilities import check_answers
 
 base = Blueprint("base", __name__)
 
@@ -15,8 +16,11 @@ def index():
 @base.route("/profile/")
 @login_required
 def profile():
-    quizzes = Score.query.all()
-    return render_template("profile.html", username=current_user.username, quizzes=quizzes)
+    username = current_user.username
+    user = User.query.filter_by(username=username).first()
+    scores = Score.query.filter_by(user_id=user.id).all()
+
+    return render_template("profile.html", username=username, scores=scores)
 
 
 @base.route("/trivia/", methods=["GET"])
@@ -28,20 +32,23 @@ def trivia():
     return render_template("trivia.html", username=current_user.username, question=question)
 
 
-@base.route("/trivia/true", methods=["GET", "POST"])
+@base.route("/trivia/check/", methods=["POST"])
 @login_required
 def correct():
     username = current_user.username
 
-    id = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first()
 
     quest = session.get("q", None)
-
-    quiz = Score(
-        category=quest["category"], question=quest["question"], level=quest["difficulty"], score=1, user_id=id
-    )
-
-    db.session.add(quiz)
-    db.session.commit()
+    print(f"<=====correct=====>")
+    if request.form["True"] == "True":
+        print(f"<======= if request True========>")
+        answers = "True"
+        print(answers)
+        check_answers(answers, quest, user)
+    else:
+        print(f"<======= if request False========>")
+        answers = "False"
+        check_answers(answers, quest, user)
 
     return redirect("/trivia/")

@@ -21,14 +21,9 @@ class Score(db.Model):
     score = db.Column(db.Integer, index=True, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
-    def __str__(self):
-        return f"Quiz: {self.quiz_title} = {self.quiz_score}"
-
     def __init__(self, category, question, level, score, user_id):
         self.category = category
         self.question = question
         self.level = level
         self.score = score
-
-    def get(self, user_id):
-        return self.score
+        self.user_id = user_id

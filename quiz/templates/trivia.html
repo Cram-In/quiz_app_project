@@ -12,9 +12,9 @@
         <p>There is yours question</p>
         <p name="question" id="question">{{ question.question }} </p>
     </form>
-    <form action="/trivia/true" method="POST">
-        <button name="true">True</button>
-        <button name="false">False</button>
+    <form action="/trivia/check/" method="POST">
+        <button name="True" value="True">True</button>
+        <button name="False" value="False">False</button>
     </form>
 </div>
 {% endblock %}
