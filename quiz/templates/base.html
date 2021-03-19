@@ -22,6 +22,11 @@
                             <a href="{{ url_for('base.index') }}" class="navbar-item">
                                 Home
                             </a>
+                            {% if current_user.is_admin %}
+                            <a href="{{ url_for('base.admin_index') }}" class="navbar-item">
+                                Admin Index
+                                {% endif %}
+                            </a>
                             {% if current_user.is_authenticated %}
                             <a href="{{ url_for('base.profile') }}" class="navbar-item">
                                 Profile

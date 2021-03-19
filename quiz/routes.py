@@ -47,15 +47,20 @@ def signup_post():
 
     if user:  # if a user is found, we want to redirect back to signup page so user can try again
         flash("Username already exists")
+        return redirect(url_for("main.login"))
+
+    # check if all data given
+    if not request.form["username"] or not request.form["password"]:
+        flash("Please enter all required data", "error")
         return redirect(url_for("main.signup"))
+    else:
+        # create a new user with the form data. Hash the password so the plaintext version isn't saved.
+        new_user = User(username=username, password=generate_password_hash(password, method="sha256"))
 
-    # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    new_user = User(username=username, password=generate_password_hash(password, method="sha256"))
-
-    # add the new user to the database
-    db.session.add(new_user)
-    db.session.commit()
-    return redirect(url_for("main.login"))
+        # add the new user to the database
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for("main.login"))
 
 
 @main.route("/logout/")

@@ -10,6 +10,8 @@ class User(UserMixin, db.Model):
     total = db.Column(db.Integer)
     scores = db.relationship("Score", backref="user", lazy="dynamic")
 
+    is_admin = db.Column(db.Boolean, default=False)
+
     def get(self, username):
         return self.id
 

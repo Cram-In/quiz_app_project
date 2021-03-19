@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request, flash, session
+from flask import Blueprint, render_template, redirect, request, session
 from flask_login import login_required, current_user
 from quiz.client import get_me_question
 from quiz import db
@@ -13,6 +13,26 @@ def index():
     users = User.query.all()
 
     return render_template("index.html", users=users)
+
+
+@base.route("/admin/")
+@login_required
+def admin_index():
+    users = User.query.all()
+
+    return render_template("admin_index.html", users=users)
+
+
+@base.route("/admin/delete/<username>")
+@login_required
+def terminator(username):
+
+    user = User.query.filter_by(username=username).first()
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return redirect("admin_index.html")
 
 
 @base.route("/profile/")
