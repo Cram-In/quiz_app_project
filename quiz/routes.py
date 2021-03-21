@@ -7,7 +7,7 @@ from . import db
 main = Blueprint("main", __name__)
 
 
-@main.route("/login/")
+@main.route("/login/", methods=["GET"])
 def login():
     return render_template("login.html")
 
@@ -29,7 +29,9 @@ def login_post():
     # take the user-supplied password, hash it, and compare it to the hashed password in the database
     if not user or not check_password_hash(user.password, password):
         flash("Please check your login details and try again.")
-        return redirect(url_for("main.login"))  # if the user doesn't exist or password is wrong, reload the page
+        return redirect(
+            url_for("main.login")
+        )  # if the user doesn't exist or password is wrong, reload the page
 
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
@@ -45,7 +47,9 @@ def signup_post():
         username=username
     ).first()  # if this returns a user, then the username already exists in database
 
-    if user:  # if a user is found, we want to redirect back to signup page so user can try again
+    if (
+        user
+    ):  # if a user is found, we want to redirect back to signup page so user can try again
         flash("Username already exists")
         return redirect(url_for("main.login"))
 
@@ -55,7 +59,10 @@ def signup_post():
         return redirect(url_for("main.signup"))
     else:
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-        new_user = User(username=username, password=generate_password_hash(password, method="sha256"))
+        new_user = User(
+            username=username,
+            password=generate_password_hash(password, method="sha256"),
+        )
 
         # add the new user to the database
         db.session.add(new_user)

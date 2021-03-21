@@ -35,7 +35,7 @@ def terminator(username):
     return redirect("admin_index.html")
 
 
-@base.route("/profile/")
+@base.route("/profile/", methods=["GET"])
 @login_required
 def profile():
     username = current_user.username
