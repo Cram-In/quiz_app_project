@@ -5,3 +5,4 @@ __pycache__
 start.sh
 geckodriver.log
 data.db
+.coverage
