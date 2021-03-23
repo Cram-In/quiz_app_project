@@ -6,3 +6,4 @@ start.sh
 geckodriver.log
 data.db
 .coverage
+.pytest_cache
