@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from config import Config
-
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 
@@ -10,6 +10,7 @@ db = SQLAlchemy()
 def create_app():
 
     app = Flask(__name__)
+    migrate = Migrate(app, db)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///quiz.db"
     app.config.from_object(Config)

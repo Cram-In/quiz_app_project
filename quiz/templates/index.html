@@ -3,16 +3,18 @@
 <style>
     .score_board {
         text-align: -webkit-center;
+        
     }
 
     .hero.is-fullheight .hero-body {
         align-items: baseline;
         text-align: -webkit-center;
     }
-
+    
     table,
     td {
         border: 1px solid #333;
+        text-align:center;
     }
 
     thead,
@@ -20,7 +22,9 @@
         background-color: #333;
         color: #fff;
     }
+
 </style>
+<title>Quiz App | Score Board</title>
 {% endblock %}
 {% block content %}
 <div class="ht"><br>
@@ -45,12 +49,14 @@
                 <td> Username </td>
                 <td> Total Score </td>
             </tr>
+            
             {% for user in users %}
             <tr>
-                <td> {{ user.username }} </td>
-                <td> {{ user.total }} </td>
+                <td style="text-align:center;"> {{ user.username }} </td>
+                <td style="text-align:center;"> {{ user.total }} </td>
             </tr>
             {% endfor %}
+            
         </tbody>
     </table>
 
